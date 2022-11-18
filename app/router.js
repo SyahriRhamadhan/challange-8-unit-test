@@ -1,4 +1,3 @@
-const express = require("express");
 const jwt = require("jsonwebtoken");
 const dayjs = require("dayjs");
 const bcrypt = require("bcryptjs");
@@ -23,10 +22,12 @@ function apply(app) {
   const userCarModel = UserCar;
 
   const applicationController = new ApplicationController();
-  const authenticationController = new AuthenticationController({ bcrypt, jwt, roleModel, userModel, });
+  const authenticationController = new AuthenticationController({
+    bcrypt, jwt, roleModel, userModel,
+  });
   const carController = new CarController({ carModel, userCarModel, dayjs });
 
-  const accessControl = authenticationController.accessControl;
+  const { accessControl } = authenticationController;
 
   app.get("/", applicationController.handleGetRoot);
 
@@ -45,6 +46,6 @@ function apply(app) {
   app.use(applicationController.handleError);
 
   return app;
-};
+}
 
-module.exports = { apply, }
+module.exports = { apply };

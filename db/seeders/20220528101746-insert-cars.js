@@ -1,5 +1,3 @@
-'use strict';
-
 const carnames = [
   "Mazda RX4",
   "Mazda RX4 Wag",
@@ -33,20 +31,20 @@ const carnames = [
   "Ferrari Dino",
   "Maserati Bora",
   "Volvo 142E",
-]
+];
 
 const sizes = ["SMALL", "MEDIUM", "LARGE"];
 
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface) {
     const cars = [];
 
     sizes.forEach((size) => {
       cars.push(
         ...carnames.map((name, i) => {
-          const accumulator = i.toLocaleString('en-US', {
+          const accumulator = i.toLocaleString("en-US", {
             minimumIntegerDigits: 2,
-            useGrouping: false
+            useGrouping: false,
           });
 
           const timestamp = new Date();
@@ -55,18 +53,18 @@ module.exports = {
             name,
             price: 300000,
             size,
-            image: `https://source.unsplash.com/5${accumulator}x5${accumulator}`, 
+            image: `https://source.unsplash.com/5${accumulator}x5${accumulator}`,
             isCurrentlyRented: false,
             createdAt: timestamp,
             updatedAt: timestamp,
-          })
-        })
-      )
-    })
-    await queryInterface.bulkInsert('Cars', cars, {})
+          });
+        }),
+      );
+    });
+    await queryInterface.bulkInsert("Cars", cars, {});
   },
 
-  async down (queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('Cars', null, {});
-  }
+  async down(queryInterface) {
+    await queryInterface.bulkDelete("Cars", null, {});
+  },
 };

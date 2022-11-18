@@ -1,7 +1,7 @@
-'use strict';
 const {
-  Model
-} = require('sequelize');
+  Model,
+} = require("sequelize");
+
 module.exports = (sequelize, DataTypes) => {
   class Car extends Model {
     /**
@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       this.hasOne(models.UserCar, {
         foreignKey: "carId",
         as: "userCar",
-      })
+      });
     }
 
     // toJSON() {
@@ -35,10 +35,10 @@ module.exports = (sequelize, DataTypes) => {
     price: DataTypes.FLOAT,
     size: DataTypes.STRING,
     image: DataTypes.STRING,
-    isCurrentlyRented: DataTypes.BOOLEAN
+    isCurrentlyRented: DataTypes.BOOLEAN,
   }, {
     sequelize,
-    modelName: 'Car',
+    modelName: "Car",
   });
   return Car;
 };
